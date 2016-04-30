@@ -29,7 +29,7 @@ public class RobotMap {
 			EncodingType.k1X);
 	public static Encoder motorBackRightEncoder = new Encoder(4, 5, true,
 			EncodingType.k1X);
-	public static Encoder motorBackLeftEncoder = new Encoder(4, 5, true,
+	public static Encoder motorBackLeftEncoder = new Encoder(4, 5, false,
 			EncodingType.k1X);
 
 	// NAVX

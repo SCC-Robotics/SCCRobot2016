@@ -1,0 +1,7 @@
+#java stuff
+/bin/
+*.class
+.classpath
+/build/*
+/dist/*
+*.prefs
