@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -24,40 +22,36 @@ public class RobotMap {
 	public static Victor motorBackLeft = new Victor(2);
 	public static Victor motorBackRight = new Victor(3);
 
+	// Check the ports of the encoders connected to the roborio
 	public static Encoder motorFrontLeftEncoder = new Encoder(6, 7, false,
 			EncodingType.k1X);
-	public static Encoder leftShooterWheelEncoder = new Encoder(4, 5, true,
+	public static Encoder motorFrontRightEncoder = new Encoder(4, 5, true,
+			EncodingType.k1X);
+	public static Encoder motorBackRightEncoder = new Encoder(4, 5, true,
+			EncodingType.k1X);
+	public static Encoder motorBackLeftEncoder = new Encoder(4, 5, true,
 			EncodingType.k1X);
 
-	public static Encoder rightMotorEncoder = new Encoder(0, 1);
-	public static Encoder leftMotorEncoder = new Encoder(2, 3, true);
-
-	// Contains an accelerometer and a gyro
+	// NAVX
 	public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
 	public static void init() {
-		// The parameters typed in for the encoder objects are random.
 		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Front Left Victor", (Victor) motorFrontLeft);
-		LiveWindow
-				.addActuator("Drive Subsystem",
-						"Speed Controller Front Right Victor",
-						(Victor) motorFrontRight);
+				"Speed Controller Front Left Victor", motorFrontLeft);
 		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Back Left Victor", (Victor) motorBackLeft);
+				"Speed Controller Front Right Victor", motorFrontRight);
 		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Back Right Victor", (Victor) motorBackRight);
+				"Speed Controller Back Left Victor", motorBackLeft);
+		LiveWindow.addActuator("Drive Subsystem",
+				"Speed Controller Back Right Victor", motorBackRight);
 
-		LiveWindow.addSensor("Drive Subsystem", "Right Drive Encoder",
-				rightMotorEncoder);
-		LiveWindow.addSensor("Drive Subsystem", "Left Drive Encoder",
-				leftMotorEncoder);
-
-		LiveWindow.addSensor("ShooterWheel Subsystem",
-				"Right Shooter Wheel Encoder", motorFrontLeftEncoder);
-		LiveWindow.addSensor("ShooterWheel Subsystem",
-				"Left Shooter Wheel Encoder", leftShooterWheelEncoder);
-		// unknown, 6 now taken
-
+		LiveWindow.addSensor("Drive Subsystem", "Front Right Drive Encoder",
+				motorFrontRightEncoder);
+		LiveWindow.addSensor("Drive Subsystem", "Front Left Drive Encoder",
+				motorFrontLeftEncoder);
+		LiveWindow.addSensor("Drive Subsystem", "Back Right Drive Encoder",
+				motorBackRightEncoder);
+		LiveWindow.addSensor("Drive Subsystem", "Back Left Drive Encoder",
+				motorBackLeftEncoder);
 	}
 }
