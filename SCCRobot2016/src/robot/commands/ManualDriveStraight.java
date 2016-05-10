@@ -1,5 +1,6 @@
 package robot.commands;
 
+import robot.DriverStation;
 import robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -12,8 +13,9 @@ public class ManualDriveStraight extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-
+		double leftPower = DriverStation.joystick.getX();
+		double rightPower = DriverStation.joystick.getY();
+		Robot.drive.rawDrive(leftPower, rightPower);
 	}
 
 	@Override

@@ -23,9 +23,9 @@ public class DriverStation {
 	// commands the same as any other Button.
 
 	// check the port!
-	public static final Joystick joystick = new Joystick(1);
+	public static final Joystick joystick = new Joystick(0);
 	public static final Button driveStraightButton = new JoystickButton(
-			joystick, 1);
+			joystick, 2);
 
 	public static void buttonInit() {
 		driveStraightButton.whenPressed(new ManualDriveStraight());
