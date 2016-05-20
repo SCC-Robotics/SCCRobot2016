@@ -1,54 +1,38 @@
+
 package robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
 public class RobotMap {
 
-	// Check the ports of the victors connected to the roborio
-	public static Victor motorFrontLeft = new Victor(0);
-	public static Victor motorFrontRight = new Victor(1);
-	public static Victor motorBackLeft = new Victor(2);
-	public static Victor motorBackRight = new Victor(3);
+	// the actuators and sensors of the robot
+	// the four motor controllers (B=back, F=front, L=left, R=right)
+	public static VictorSP motorFR = new VictorSP(1);
+	public static VictorSP motorFL = new VictorSP(0);
+	public static VictorSP motorBR = new VictorSP(3);
+	public static VictorSP motorBL = new VictorSP(2);
 
-	// Check the ports of the encoders connected to the roborio
-//	public static Encoder motorFrontLeftEncoder = new Encoder(6, 7, false,
-//			EncodingType.k1X);
-//	public static Encoder motorFrontRightEncoder = new Encoder(4, 5, true,
-//			EncodingType.k1X);
-//	public static Encoder motorBackRightEncoder = new Encoder(4, 5, true,
-//			EncodingType.k1X);
-//	public static Encoder motorBackLeftEncoder = new Encoder(4, 5, false,
-//			EncodingType.k1X);
+	// the accelerometer and gyro
+	public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
-	// NAVX
-	//	public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
+	// table of values to store on the roborio and possibly modify on the
+	// smartdashboard
+	public static Preferences prefs = Preferences.getInstance();
 
 	public static void init() {
-		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Front Left Victor", motorFrontLeft);
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFrontRight);
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Left Victor", motorBackLeft);
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBackRight);
-		//
-		// LiveWindow.addSensor("Drive Subsystem", "Front Right Drive Encoder",
-		// motorFrontRightEncoder);
-		// LiveWindow.addSensor("Drive Subsystem", "Front Left Drive Encoder",
-		// motorFrontLeftEncoder);
-		// LiveWindow.addSensor("Drive Subsystem", "Back Right Drive Encoder",
-		// motorBackRightEncoder);
-		// LiveWindow.addSensor("Drive Subsystem", "Back Left Drive Encoder",
-		// motorBackLeftEncoder);
+		// populate the LiveWindow with variables
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Left Victor", motorBL);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBR);
+
+		// Add values to the preferences table
+		prefs.putDouble("Heading_P", .1);
 	}
+
 }
