@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Yaw angle", RobotMap.ahrs.getAngle());
 		SmartDashboard.putNumber("Back Left motor", RobotMap.motorBL.get());
 		SmartDashboard.putNumber("Back Right motor", RobotMap.motorBL.get());
 		SmartDashboard.putNumber("Front Left motor", RobotMap.motorFL.get());

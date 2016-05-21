@@ -20,9 +20,9 @@ public class Drive extends Subsystem implements PIDOutput {
 
 	public void driveOnHeadingInit(double heading, double maxPower) {
 		double kp = RobotMap.prefs.getDouble("Heading_P", .1);
-		SmartDashboard.putNumber("kp", kp);
-		double ki = 0;
-		double kd = 0;
+		double ki = RobotMap.prefs.getDouble("Heading_I", 0);
+		double kd = RobotMap.prefs.getDouble("Heading_D", 0);
+		SmartDashboard.putString("kp, ki, kd", kp + ", " + ki + ", " + kd);
 		drivePID = new PIDController(kp, ki, kd, RobotMap.ahrs, this);
 		drivePID.setSetpoint(heading);
 		drivePID.setOutputRange(-Math.abs(maxPower), Math.abs(maxPower));

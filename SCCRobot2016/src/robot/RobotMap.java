@@ -33,6 +33,8 @@ public class RobotMap {
 
 		// Add values to the preferences table
 		prefs.putDouble("Heading_P", .1);
+		prefs.putDouble("Heading_I", 0);
+		prefs.putDouble("Heading_D", 0);
 	}
 
 }
