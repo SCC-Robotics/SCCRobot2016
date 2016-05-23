@@ -6,10 +6,17 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.subsystems.Drive;
 
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the IterativeRobot
+ * documentation. 
+ */
+
 public class Robot extends IterativeRobot {
-	// this is where the code of the robot is executed
 
 	// the subsystems of the robot
+	// just the drive subsystem for now
+	// we will have more (e.g. launcher subsystem)
 	public static Drive drive = new Drive();
 
 	public void robotInit() {

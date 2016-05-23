@@ -7,7 +7,12 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
+/**
+ * The RobotMap is a mapping from the ports sensors and actuators are wired into
+ * to a variable name. This provides flexibility changing wiring, makes checking
+ * the wiring easier and significantly reduces the number of magic numbers
+ * floating around.
+ */
 public class RobotMap {
 
 	// the actuators and sensors of the robot
@@ -25,13 +30,13 @@ public class RobotMap {
 	public static Preferences prefs = Preferences.getInstance();
 
 	public static void init() {
-		// populate the LiveWindow with variables
+		// populate the LiveWindow with variables (visible only in test mode)
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Left Victor", motorBL);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBR);
 
-		// Add values to the preferences table
+		// Add values to the preferences table: useful for interactively tuning the robot (e.g. pid's)
 		prefs.putBoolean("Test heading", false);
 		prefs.putDouble("Heading", 0);
 		prefs.putDouble("Heading_P", .001);
