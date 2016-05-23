@@ -7,3 +7,4 @@
 *.prefs
 build.properties
 build.xml
+*.xml
