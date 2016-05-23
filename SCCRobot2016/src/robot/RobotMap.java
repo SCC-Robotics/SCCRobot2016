@@ -32,7 +32,9 @@ public class RobotMap {
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBR);
 
 		// Add values to the preferences table
-		prefs.putDouble("Heading_P", .1);
+		prefs.putBoolean("Test heading", false);
+		prefs.putDouble("Heading", 0);
+		prefs.putDouble("Heading_P", .001);
 		prefs.putDouble("Heading_I", 0);
 		prefs.putDouble("Heading_D", 0);
 	}

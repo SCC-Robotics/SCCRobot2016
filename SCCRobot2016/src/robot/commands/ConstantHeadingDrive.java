@@ -11,6 +11,7 @@ public class ConstantHeadingDrive extends Command {
 
 	private Drive drive = Robot.drive;
 	private double heading;
+	private double yMotion = 1;
 
 	public ConstantHeadingDrive() {
 		requires(Robot.drive);
@@ -18,14 +19,21 @@ public class ConstantHeadingDrive extends Command {
 
 	@Override
 	protected void initialize() {
-		heading = RobotMap.ahrs.getAngle();
+		if (RobotMap.prefs.getBoolean("Test heading", false)) {
+			heading = RobotMap.prefs.getDouble("Heading", 0);
+			// make the robot turn on the spot for testing (no forward or backward motion)
+			yMotion = 0;
+		} else {
+			heading = RobotMap.ahrs.getAngle();
+		}
 		drive.driveOnHeadingInit(heading, 1);
 	}
 
 	@Override
 	protected void execute() {
-		double power = -DriverStation.joystick.getY(); // forward is negative y
-														// on the joystick
+		// the negative sign is because forward is -y on the joystick
+		// yMotion is 0 for testing and 0 otherwise
+		double power = -yMotion * DriverStation.joystick.getY(); 
 		drive.driveOnHeading(power);
 	}
 

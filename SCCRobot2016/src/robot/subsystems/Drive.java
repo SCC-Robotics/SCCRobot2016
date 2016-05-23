@@ -19,7 +19,7 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void driveOnHeadingInit(double heading, double maxPower) {
-		double kp = RobotMap.prefs.getDouble("Heading_P", .1);
+		double kp = RobotMap.prefs.getDouble("Heading_P", .001);
 		double ki = RobotMap.prefs.getDouble("Heading_I", 0);
 		double kd = RobotMap.prefs.getDouble("Heading_D", 0);
 		SmartDashboard.putString("kp, ki, kd", kp + ", " + ki + ", " + kd);
@@ -36,6 +36,8 @@ public class Drive extends Subsystem implements PIDOutput {
 		double pFR = power + pidOutput;
 		double pBL = power - pidOutput;
 		double pBR = power + pidOutput;
+		double error = RobotMap.ahrs.getAngle() - drivePID.getSetpoint();
+		SmartDashboard.putNumber("heading error", error);
 		SmartDashboard.putNumber("Pid output", pidOutput);
 		SmartDashboard.putNumber("power straight drive", power);
 		pFL = MathHelper.clamp(pFL, -1, 1);
