@@ -29,7 +29,9 @@ public class ConstantHeadingDrive extends Command {
 			// backward motion)
 			yMotion = 0;
 		} else {
-			heading = RobotMap.ahrs.getAngle();
+			// Don't use getAngle (same but continuous) since the pid implementation
+			// of the ahrs returns the same value as getYaw (= angle between -180 and 180)
+			heading = RobotMap.ahrs.getYaw();
 		}
 		drive.driveOnHeadingInit(heading, 1);
 	}

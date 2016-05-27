@@ -19,14 +19,16 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void driveOnHeadingInit(double heading, double maxPower) {
-		double kp = RobotMap.prefs.getDouble("Heading_P", .001);
-		double ki = RobotMap.prefs.getDouble("Heading_I", 0);
-		double kd = RobotMap.prefs.getDouble("Heading_D", 0);
+		double kp = RobotMap.prefs.getDouble("Heading_P", RobotMap.STRAIGHT_KP);
+		double ki = RobotMap.prefs.getDouble("Heading_I", RobotMap.STRAIGHT_KI);
+		double kd = RobotMap.prefs.getDouble("Heading_D", RobotMap.STRAIGHT_KD);
 		SmartDashboard.putString("kp, ki, kd", kp + ", " + ki + ", " + kd);
 		drivePID = new PIDController(kp, ki, kd, RobotMap.ahrs, this);
 		drivePID.setSetpoint(heading);
-		drivePID.setOutputRange(-Math.abs(maxPower), Math.abs(maxPower));
+		drivePID.setOutputRange(-0.5, 0.5);
+		// drivePID.setOutputRange(-Math.abs(maxPower), Math.abs(maxPower));
 		drivePID.enable();
+		SmartDashboard.putNumber("set point ", drivePID.getSetpoint());
 	}
 
 	public void driveOnHeading(double power) {
@@ -34,8 +36,8 @@ public class Drive extends Subsystem implements PIDOutput {
 		// given the pid output, rotate accordingly
 		double pFL = power - pidOutput;
 		double pFR = power + pidOutput;
-		double pBL = power - pidOutput;
-		double pBR = power + pidOutput;
+		double pBL = power + pidOutput;
+		double pBR = power - pidOutput;
 		double error = RobotMap.ahrs.getAngle() - drivePID.getSetpoint();
 		SmartDashboard.putNumber("heading error", error);
 		SmartDashboard.putNumber("Pid output", pidOutput);
@@ -49,6 +51,7 @@ public class Drive extends Subsystem implements PIDOutput {
 
 	public void driveOnHeadingEnd() {
 		drivePID.reset();
+		drivePID.free();
 		pidOutput = 0;
 		rawStop();
 	}
