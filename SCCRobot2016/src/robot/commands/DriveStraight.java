@@ -11,13 +11,13 @@ import robot.subsystems.Drive;
  * Command that drives the robot along a straight line given by a heading angle
  *
  */
-public class ConstantHeadingDrive extends Command {
+public class DriveStraight extends Command {
 
 	private Drive drive = Robot.drive;
 	private double heading;
 	private double yMotion = 1;
 
-	public ConstantHeadingDrive() {
+	public DriveStraight() {
 		requires(Robot.drive);
 	}
 
