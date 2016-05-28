@@ -1,5 +1,6 @@
-
 package robot;
+
+import robot.utilities.ContinuousGyro;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -33,7 +34,9 @@ public class RobotMap {
 	public static VictorSP motorBL = new VictorSP(2);
 
 	// the accelerometer and gyro
-	public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
+	// public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
+	// a gyro based on the AHRS gyro that uses a continuous angle for pidGet
+	public static ContinuousGyro gyro = new ContinuousGyro(SPI.Port.kMXP);
 
 	// table of values to store on the roborio and possibly modify on the
 	// smartdashboard
@@ -41,10 +44,14 @@ public class RobotMap {
 
 	public static void init() {
 		// populate the LiveWindow with variables (visible only in test mode)
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Left Victor", motorBL);
-		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBR);
+		LiveWindow.addActuator("Drive Subsystem",
+				"Speed Controller Front Left Victor", motorFL);
+		LiveWindow.addActuator("Drive Subsystem",
+				"Speed Controller Front Right Victor", motorFR);
+		LiveWindow.addActuator("Drive Subsystem",
+				"Speed Controller Back Left Victor", motorBL);
+		LiveWindow.addActuator("Drive Subsystem",
+				"Speed Controller Back Right Victor", motorBR);
 
 		// Add values to the preferences table: useful for interactively tuning
 		// the robot (e.g. pid's)

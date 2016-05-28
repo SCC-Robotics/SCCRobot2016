@@ -1,12 +1,11 @@
 package robot;
 
+import robot.commands.DriveStraight;
+import robot.commands.ManualDrive;
+import robot.commands.TurnAngle;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import robot.commands.ManualDrive;
-import robot.commands.TurnLeft;
-import robot.commands.TurnRight;
-import robot.commands.DriveStraight;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,9 +21,11 @@ public class DriverStation {
 		// associate a command to the button
 		joystickB1.whenPressed(new DriveStraight());
 		joystickB1.whenReleased(new ManualDrive());
-		joystickB3.whenPressed(new TurnLeft());
+		// turn by 90 degrees to the left within .5 degrees
+		joystickB3.whenPressed(new TurnAngle(-90, .5));
 		joystickB3.whenReleased(new ManualDrive());
-		joystickB4.whenPressed(new TurnRight());
+		// turn by 90 degrees to the right within .5 degrees
+		joystickB4.whenPressed(new TurnAngle(90, 0.5));
 		joystickB4.whenReleased(new ManualDrive());
 	}
 

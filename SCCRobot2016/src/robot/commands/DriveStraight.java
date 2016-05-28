@@ -1,11 +1,12 @@
 package robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.DriverStation;
 import robot.Robot;
 import robot.RobotMap;
 import robot.subsystems.Drive;
+import robot.utilities.ContinuousGyro;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Command that drives the robot along a straight line given by a heading angle
@@ -14,6 +15,7 @@ import robot.subsystems.Drive;
 public class DriveStraight extends Command {
 
 	private Drive drive = Robot.drive;
+	private ContinuousGyro gyro = RobotMap.gyro;
 	private double heading;
 	private double yMotion = 1;
 
@@ -29,11 +31,10 @@ public class DriveStraight extends Command {
 			// backward motion)
 			yMotion = 0;
 		} else {
-			// Don't use getAngle (same but continuous) since the pid implementation
-			// of the ahrs returns the same value as getYaw (= angle between -180 and 180)
-			heading = RobotMap.ahrs.getYaw();
+			// getAngle returns a continuous angle as does pidGet in ContinousGyro
+			heading = gyro.getAngle();
 		}
-		drive.driveOnHeadingInit(heading, 1);
+		drive.driveOnHeadingInit(heading);
 	}
 
 	@Override
@@ -46,6 +47,7 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected boolean isFinished() {
+		// Goes on until interrupted
 		return false;
 	}
 
@@ -56,7 +58,6 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void interrupted() {
-		SmartDashboard.putString("Interrupted", "true");
 		end();
 	}
 

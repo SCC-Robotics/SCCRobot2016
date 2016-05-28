@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Joystick twist", DriverStation.joystick.getTwist());
 		SmartDashboard.putNumber("Joystick directions degrees", DriverStation.joystick.getDirectionDegrees());
 		SmartDashboard.putNumber("Joystick throttle", DriverStation.joystick.getThrottle());
-		SmartDashboard.putNumber("Yaw angle", RobotMap.ahrs.getAngle());
+		SmartDashboard.putNumber("Yaw angle", RobotMap.gyro.getAngle());
 	}
 
 	@Override

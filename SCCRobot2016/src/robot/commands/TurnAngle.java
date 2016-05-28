@@ -1,50 +1,49 @@
 package robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import robot.DriverStation;
 import robot.Robot;
 import robot.RobotMap;
 import robot.subsystems.Drive;
+import robot.utilities.ContinuousGyro;
+import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnAngle extends Command {
 	private Drive drive = Robot.drive;
-	private double power, tolerance, angle;
+	private ContinuousGyro gyro = RobotMap.gyro;
+	private double tolerance, angle;
 	private double finalHeading;
 
-	public TurnAngle(double angle, double power, double tolerance) {
+	public TurnAngle(double angle, double tolerance) {
 		requires(drive);
-		this.power = power;
 		this.tolerance = tolerance;
 		this.angle = angle;
 	}
 
 	@Override
 	protected void initialize() {
-		finalHeading = RobotMap.ahrs.getAngle() + angle;
-		// drive.turnToHeadingInit(finalHeading, 1, tolerance);
+		finalHeading = gyro.getAngle() + angle;
+		drive.driveOnHeadingInit(finalHeading);
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-
+		double power = -DriverStation.joystick.getY();
+		drive.driveOnHeading(power);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+		return Math.abs(gyro.getAngle() - finalHeading) <= tolerance;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-
+		drive.driveOnHeadingEnd();
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		end();
 	}
 
 }
