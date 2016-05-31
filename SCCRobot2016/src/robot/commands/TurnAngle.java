@@ -12,6 +12,7 @@ public class TurnAngle extends Command {
 	private ContinuousGyro gyro = RobotMap.gyro;
 	private double tolerance, angle;
 	private double finalHeading;
+	private int cycles;
 
 	public TurnAngle(double angle, double tolerance) {
 		requires(drive);
@@ -22,6 +23,7 @@ public class TurnAngle extends Command {
 	@Override
 	protected void initialize() {
 		finalHeading = gyro.getAngle() + angle;
+		cycles = 0;
 		drive.driveOnHeadingInit(finalHeading);
 	}
 
@@ -33,7 +35,14 @@ public class TurnAngle extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(gyro.getAngle() - finalHeading) <= tolerance;
+		// stop if the angle stays close to the final heading for several cycles
+		if (Math.abs(gyro.getAngle() - finalHeading) <= tolerance) {
+			cycles ++;
+			return cycles >= 10;
+		} else {
+			cycles = 0;
+			return false;
+		}
 	}
 
 	@Override
