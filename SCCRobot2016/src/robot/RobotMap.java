@@ -1,13 +1,11 @@
 package robot;
 
-import robot.utilities.ContinuousGyro;
-
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import robot.utilities.ContinuousGyro;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -33,6 +31,11 @@ public class RobotMap {
 	public static VictorSP motorBR = new VictorSP(3);
 	public static VictorSP motorBL = new VictorSP(2);
 
+	// motor controller for the ball launcher
+	public static VictorSP motorWinch = new VictorSP(4);
+	public static VictorSP motorActuator = new VictorSP(5);
+	public static Servo servo = new Servo(6);
+
 	// the accelerometer and gyro
 	// public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	// a gyro based on the AHRS gyro that uses a continuous angle for pidGet
@@ -44,14 +47,10 @@ public class RobotMap {
 
 	public static void init() {
 		// populate the LiveWindow with variables (visible only in test mode)
-		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Front Left Victor", motorFL);
-		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Front Right Victor", motorFR);
-		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Back Left Victor", motorBL);
-		LiveWindow.addActuator("Drive Subsystem",
-				"Speed Controller Back Right Victor", motorBR);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Left Victor", motorBL);
+		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBR);
 
 		// Add values to the preferences table: useful for interactively tuning
 		// the robot (e.g. pid's)

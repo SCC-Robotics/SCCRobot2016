@@ -16,6 +16,7 @@ public class ManualDrive extends Command {
 		requires(drive);
 	}
 
+	
 	@Override
 	protected void initialize() {
 	}
@@ -32,11 +33,11 @@ public class ManualDrive extends Command {
 											// the right, - if to the left)
 		SmartDashboard.putString("x, y, z from joystick", x + ", " + y + ", " + z);
 		// forward is negative on the y-axis
-		double pFL = -y - x - z;
-		double pFR = -y - x + z;
-		double pBL = -y + x + z;
-		double pBR = -y + x - z;
-		drive.rawMecanumDrive(pFL, pFR, pBL, pBR);
+		double pBL = y - x - z;
+		double pBR = y + x + z;
+		double pFL = y - x + z;
+		double pFR = y + x - z;
+		drive.rawMecanumDrive(pBL, pBR, pFL, pFR);
 	}
 
 	@Override

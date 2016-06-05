@@ -4,12 +4,13 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.subsystems.BallLauncher;
 import robot.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. 
+ * documentation.
  */
 
 public class Robot extends IterativeRobot {
@@ -18,6 +19,7 @@ public class Robot extends IterativeRobot {
 	// just the drive subsystem for now
 	// we will have more (e.g. launcher subsystem)
 	public static Drive drive = new Drive();
+	public static BallLauncher launcher = new BallLauncher();
 
 	public void robotInit() {
 		RobotMap.init();

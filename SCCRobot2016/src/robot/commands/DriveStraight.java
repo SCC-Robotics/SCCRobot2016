@@ -1,12 +1,11 @@
 package robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import robot.DriverStation;
 import robot.Robot;
 import robot.RobotMap;
 import robot.subsystems.Drive;
 import robot.utilities.ContinuousGyro;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Command that drives the robot along a straight line given by a heading angle
@@ -31,7 +30,8 @@ public class DriveStraight extends Command {
 			// backward motion)
 			yMotion = 0;
 		} else {
-			// getAngle returns a continuous angle as does pidGet in ContinousGyro
+			// getAngle returns a continuous angle as does pidGet in
+			// ContinousGyro
 			heading = gyro.getAngle();
 		}
 		drive.driveOnHeadingInit(heading);
@@ -39,9 +39,8 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void execute() {
-		// the negative sign is because forward is -y on the joystick
 		// yMotion is 0 for testing and 0 otherwise
-		double power = -yMotion * DriverStation.joystick.getY();
+		double power = yMotion * DriverStation.joystick.getY();
 		drive.driveOnHeading(power);
 	}
 

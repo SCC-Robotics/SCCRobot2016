@@ -3,6 +3,7 @@ package robot;
 import robot.commands.DriveStraight;
 import robot.commands.ManualDrive;
 import robot.commands.TurnAngle;
+import robot.commands.LaunchBall;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -16,6 +17,7 @@ public class DriverStation {
 	public static Button joystickB1 = new JoystickButton(joystick, 1);
 	public static Button joystickB3 = new JoystickButton(joystick, 3);
 	public static Button joystickB4 = new JoystickButton(joystick, 4);
+	public static Button joystickB2 = new JoystickButton(joystick, 2);
 
 	public static void buttonInit() {
 		// associate a command to the button
@@ -27,6 +29,9 @@ public class DriverStation {
 		// turn by 90 degrees to the right within .5 degrees
 		joystickB4.whenPressed(new TurnAngle(90, 0.5));
 		joystickB4.whenReleased(new ManualDrive());
+		// start the ball launcher
+		joystickB2.whenPressed(new LaunchBall());
+		joystickB2.whenReleased(new ManualDrive());
 	}
 
 }
