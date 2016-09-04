@@ -61,10 +61,12 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void rawMecanumDrive(double pFL, double pFR, double pBL, double pBR) {
-		pFL = MathHelper.clamp(pFL, -1, 1);
-		pFR = MathHelper.clamp(pFR, -1, 1);
-		pBL = MathHelper.clamp(pBL, -1, 1);
-		pBR = MathHelper.clamp(pBR, -1, 1);
+		double max= Math.min(RobotMap.sonicAverage.getAverage()/1000, 1);
+		double min= -max;
+		pFL = MathHelper.clamp(pFL, min, max);
+		pFR = MathHelper.clamp(pFR, min, max);
+		pBL = MathHelper.clamp(pBL, min, max);
+		pBR = MathHelper.clamp(pBR, min, max);
 		// motors on the left and right are back to back
 		// and should rotate in opposite directions -> minus signs
 		RobotMap.motorBL.set(pBL);

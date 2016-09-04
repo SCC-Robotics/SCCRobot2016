@@ -1,10 +1,15 @@
 package robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import robot.utilities.AverageSonicSensor;
 import robot.utilities.ContinuousGyro;
 
 /**
@@ -31,11 +36,26 @@ public class RobotMap {
 	public static VictorSP motorBR = new VictorSP(3);
 	public static VictorSP motorBL = new VictorSP(2);
 
+	// Hall effect sensors on the actuator
+	public static DigitalInput hallbot = new DigitalInput(0);
+	public static DigitalInput halltop = new DigitalInput(1);
+	// Sonic sensor
+	public static AnalogInput sonicSensor = new AnalogInput(0);
+	public static AverageSonicSensor sonicAverage = new AverageSonicSensor(sonicSensor, 5);
+
 	// motor controller for the ball launcher
 	public static VictorSP motorWinch = new VictorSP(4);
 	public static VictorSP motorActuator = new VictorSP(5);
 	public static Servo servo = new Servo(6);
 
+	// solenoid
+	public static DoubleSolenoid gearboxSol = new DoubleSolenoid(0, 1);
+	public static DoubleSolenoid cannonSol = new DoubleSolenoid(2, 3);
+	// Compressor
+	public static Compressor compressor = new Compressor(1);
+
+	
+	 
 	// the accelerometer and gyro
 	// public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	// a gyro based on the AHRS gyro that uses a continuous angle for pidGet

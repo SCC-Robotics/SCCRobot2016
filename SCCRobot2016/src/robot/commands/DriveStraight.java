@@ -40,7 +40,7 @@ public class DriveStraight extends Command {
 	@Override
 	protected void execute() {
 		// yMotion is 0 for testing and 0 otherwise
-		double power = yMotion * DriverStation.joystick.getY();
+		double power = -yMotion * DriverStation.joystick.getY();
 		drive.driveOnHeading(power);
 	}
 

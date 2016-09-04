@@ -1,5 +1,6 @@
 package robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,7 +14,7 @@ public class LaunchBall extends Command {
 
 	private static final double PERIOD = 1;
 	private BallLauncher launcher = Robot.launcher;
-	private Joystick joystick = DriverStation.joystick;
+	private Joystick gamePad = DriverStation.gamePad;
 	private boolean shoot, waitToShoot;
 	private Timer timer;
 
@@ -30,7 +31,7 @@ public class LaunchBall extends Command {
 	protected void execute() {
 		SmartDashboard.putNumber("servo angle", RobotMap.servo.getAngle());
 		SmartDashboard.putNumber("servo position", RobotMap.servo.getPosition());
-		if (!shoot && joystick.getRawButton(1) && !waitToShoot) {
+		if (!shoot && gamePad.getRawButton(1) && !waitToShoot) {
 			shoot = true;
 			waitToShoot = true;
 			timer.start();
@@ -48,14 +49,27 @@ public class LaunchBall extends Command {
 				waitToShoot = false;
 				timer.stop();
 			}
-			double y = joystick.getY();
-			launcher.riseActuator(y);
-			if (joystick.getRawButton(2)) {
-				launcher.pullWinch(Math.abs(joystick.getZ()));
+
+			double y = gamePad.getY();
+			launcher.riseActuator(y); // try -y
+			if (gamePad.getRawButton(2)) {
+				// positive power is the correct direction to rewind the cable
+				launcher.pullWinch(0.3);
 			} else {
 				launcher.pullWinch(0);
 			}
+		}
 
+		if (gamePad.getRawButton(3)) {
+			// launcher.riseActuator(0.3);
+			RobotMap.gearboxSol.set(DoubleSolenoid.Value.kForward);
+		} else if (gamePad.getRawButton(4)) {
+			// launcher.riseActuator(-.3);
+			RobotMap.gearboxSol.set(DoubleSolenoid.Value.kReverse);
+		} else if (gamePad.getRawButton(6)) {
+			RobotMap.cannonSol.set(DoubleSolenoid.Value.kForward);
+		}else if (gamePad.getRawButton(5)) {
+			RobotMap.cannonSol.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
 

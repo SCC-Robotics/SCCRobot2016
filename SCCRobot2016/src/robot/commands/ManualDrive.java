@@ -16,7 +16,6 @@ public class ManualDrive extends Command {
 		requires(drive);
 	}
 
-	
 	@Override
 	protected void initialize() {
 	}
@@ -25,11 +24,11 @@ public class ManualDrive extends Command {
 	protected void execute() {
 		// read the joystick inputs and compute the power of the motors
 		double x = joystick.getX(); // left-right (+ for left, - for right)
-		double y = joystick.getY(); // backward-forward (+ for backward, -
+		double y = -joystick.getY(); // backward-forward (+ for backward, -
 									// for
 									// forward)
 		double z = joystick.getThrottle(); // rotation of the handle (+ if
- 											// to
+											// to
 											// the right, - if to the left)
 		SmartDashboard.putString("x, y, z from joystick", x + ", " + y + ", " + z);
 		// forward is negative on the y-axis
@@ -41,7 +40,7 @@ public class ManualDrive extends Command {
 	}
 
 	@Override
-	protected boolean isFinished() {
+	protected boolean isFinished() { 
 		return false;
 	}
 
