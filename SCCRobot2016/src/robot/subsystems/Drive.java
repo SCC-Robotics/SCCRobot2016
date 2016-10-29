@@ -61,8 +61,11 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void rawMecanumDrive(double pFL, double pFR, double pBL, double pBR) {
-		double max= Math.min(RobotMap.sonicAverage.getAverage()/1000, 1);
-		double min= -max;
+		double max = Math.min(RobotMap.sonicAverage.getAverage() / 1000, 1);
+		double min = -max;
+		// Bypass the sonic sensor
+		max = 1;
+		min = -1;
 		pFL = MathHelper.clamp(pFL, min, max);
 		pFR = MathHelper.clamp(pFR, min, max);
 		pBL = MathHelper.clamp(pBL, min, max);

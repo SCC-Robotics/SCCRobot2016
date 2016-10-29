@@ -64,6 +64,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		periodicAll();
 	}
 
 	@Override
@@ -75,28 +76,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		RobotMap.sonicAverage.addValue();
-		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
-		// SmartDashboard.putBoolean("top", RobotMap.top.get());
-		SmartDashboard.putNumber("Back Left motor", RobotMap.motorBL.get());
-		SmartDashboard.putNumber("Back Right motor", RobotMap.motorBL.get());
-		SmartDashboard.putNumber("Front Left motor", RobotMap.motorFL.get());
-		SmartDashboard.putNumber("Front Right motor", RobotMap.motorFR.get());
-		SmartDashboard.putNumber("Joystick x", DriverStation.joystick.getX());
-		SmartDashboard.putNumber("Joystick y", DriverStation.joystick.getY());
-		SmartDashboard.putNumber("Joystick z", DriverStation.joystick.getZ());
-		SmartDashboard.putNumber("Joystick twist", DriverStation.joystick.getTwist());
-		SmartDashboard.putNumber("Joystick directions degrees", DriverStation.joystick.getDirectionDegrees());
-		SmartDashboard.putNumber("Joystick throttle", DriverStation.joystick.getThrottle());
-		SmartDashboard.putNumber("Yaw angle", RobotMap.gyro.getAngle());
-		SmartDashboard.putNumber("Sonic sensor", RobotMap.sonicSensor.getValue());
-		SmartDashboard.putNumber("Sonic sensor average value", RobotMap.sonicSensor.getAverageValue());
-		SmartDashboard.putNumber("Sonic sensor computed average value", RobotMap.sonicAverage.getAverage());
-		SmartDashboard.putNumber("Sonic sensor computed count", RobotMap.sonicAverage.getCount());
-		SmartDashboard.putNumber("Sonic sensor computed sum", RobotMap.sonicAverage.getSum());
+		periodicAll();
 
-		// SmartDashboard.putString("solenoid",
-		// RobotMap.pistonSol.get().toString());
 	}
 
 	@Override
@@ -121,5 +102,31 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		// TODO Auto-generated method stub
 		super.testPeriodic();
+	}
+
+	public void periodicAll() {
+		RobotMap.sonicAverage.addValue();
+		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
+		// SmartDashboard.putBoolean("top", RobotMap.top.get());
+		SmartDashboard.putNumber("Back Left motor", RobotMap.motorBL.get());
+		SmartDashboard.putNumber("Back Right motor", RobotMap.motorBL.get());
+		SmartDashboard.putNumber("Front Left motor", RobotMap.motorFL.get());
+		SmartDashboard.putNumber("Front Right motor", RobotMap.motorFR.get());
+		SmartDashboard.putNumber("Joystick x", DriverStation.joystick.getX());
+		SmartDashboard.putNumber("Joystick y", DriverStation.joystick.getY());
+		SmartDashboard.putNumber("Joystick z", DriverStation.joystick.getZ());
+		SmartDashboard.putNumber("Joystick twist", DriverStation.joystick.getTwist());
+		SmartDashboard.putNumber("Joystick directions degrees", DriverStation.joystick.getDirectionDegrees());
+		SmartDashboard.putNumber("Joystick throttle", DriverStation.joystick.getThrottle());
+		SmartDashboard.putNumber("Yaw angle", RobotMap.gyro.getAngle());
+		SmartDashboard.putNumber("Sonic sensor", RobotMap.sonicSensor.getValue());
+		SmartDashboard.putNumber("Sonic sensor average value", RobotMap.sonicSensor.getAverageValue());
+		SmartDashboard.putNumber("Sonic sensor computed average value", RobotMap.sonicAverage.getAverage());
+		SmartDashboard.putNumber("Sonic sensor computed count", RobotMap.sonicAverage.getCount());
+		SmartDashboard.putNumber("Sonic sensor computed sum", RobotMap.sonicAverage.getSum());
+
+		// SmartDashboard.putString("solenoid",
+		// RobotMap.pistonSol.get().toString());
+
 	}
 }

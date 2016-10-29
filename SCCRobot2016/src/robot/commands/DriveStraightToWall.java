@@ -29,13 +29,13 @@ public class DriveStraightToWall extends Command {
 	@Override
 	protected void execute() {
 		// yMotion is 0 for testing and 0 otherwise
-		double power = .1;
+		double power = .2;
 		drive.driveOnHeading(power);
-	}
+	}	
 
 	@Override
 	protected boolean isFinished() {
-		
+
 		// Goes on until interrupted
 		return RobotMap.sonicAverage.getAverage() <= 300;
 	}
