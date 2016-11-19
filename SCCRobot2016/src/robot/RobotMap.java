@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
@@ -54,12 +55,15 @@ public class RobotMap {
 	// Compressor
 	public static Compressor compressor = new Compressor(1);
 
-	
-	 
 	// the accelerometer and gyro
 	// public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	// a gyro based on the AHRS gyro that uses a continuous angle for pidGet
 	public static ContinuousGyro gyro = new ContinuousGyro(SPI.Port.kMXP);
+
+	// encoders for the wheel
+	public static Encoder wheelEncoder = new Encoder(9, 8); // a->9, b->8
+	// measured 4422 ticks over 26 feet
+	public static final double TICKS_PER_METER = (4422 / (26 * 12 * .0254));
 
 	// table of values to store on the roborio and possibly modify on the
 	// smartdashboard
@@ -79,6 +83,8 @@ public class RobotMap {
 		prefs.putDouble("Heading_P", STRAIGHT_KP);
 		prefs.putDouble("Heading_I", STRAIGHT_KI);
 		prefs.putDouble("Heading_D", STRAIGHT_KD);
+		prefs.putDouble("Straight distance", 1);
+		prefs.putDouble("Straight power", .3);
 	}
 
 }

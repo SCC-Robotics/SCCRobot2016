@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.commandgroups.DriveAroundFloor2;
+import robot.commands.ResetEncoder;
 import robot.subsystems.BallLauncher;
 import robot.subsystems.Drive;
 
@@ -124,7 +125,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Sonic sensor computed average value", RobotMap.sonicAverage.getAverage());
 		SmartDashboard.putNumber("Sonic sensor computed count", RobotMap.sonicAverage.getCount());
 		SmartDashboard.putNumber("Sonic sensor computed sum", RobotMap.sonicAverage.getSum());
-
+		SmartDashboard.putNumber("WheelEncoder value", RobotMap.wheelEncoder.get());
+		SmartDashboard.putData("reset encoder", new ResetEncoder());
 		// SmartDashboard.putString("solenoid",
 		// RobotMap.pistonSol.get().toString());
 
