@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.commandgroups.DriveAroundFloor2;
+import robot.commands.DrivePath;
 import robot.commands.ResetEncoder;
 import robot.subsystems.BallLauncher;
 import robot.subsystems.Drive;
@@ -72,6 +73,10 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		// TODO Auto-generated method stub
 		super.teleopInit();
+
+		String path = RobotMap.prefs.getString("Drive Path", "");
+		System.out.println("Drive Path: " + path);
+		SmartDashboard.putData("Drive Path", new DrivePath(path));
 	}
 
 	@Override

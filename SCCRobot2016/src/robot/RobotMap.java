@@ -63,8 +63,10 @@ public class RobotMap {
 	// encoders for the wheel
 	public static Encoder wheelEncoder = new Encoder(9, 8); // a->9, b->8
 	// measured 4422 ticks over 26 feet
-	public static final double TICKS_PER_METER = (4422 / (26 * 12 * .0254));
-
+	//public static final double TICKS_PER_METER = (4422 / (26 * 12 * .0254));
+	// Latest measurement was 1528 ticks over 9 2/3 feet
+	public static final double TICKS_PER_METER = (1528 / (9.667 * 12 * .0254));
+	
 	// table of values to store on the roborio and possibly modify on the
 	// smartdashboard
 	public static Preferences prefs = Preferences.getInstance();
@@ -85,6 +87,7 @@ public class RobotMap {
 		prefs.putDouble("Heading_D", STRAIGHT_KD);
 		prefs.putDouble("Straight distance", 1);
 		prefs.putDouble("Straight power", .3);
+		prefs.putString("Drive Path", "d0.5, a90, d0.5");
 	}
 
 }

@@ -19,6 +19,10 @@ public class TurnAngle extends Command {
 		this.tolerance = tolerance;
 		this.angle = angle;
 	}
+	
+	public TurnAngle(double angle) {
+		this(angle, 0.5);
+	}
 
 	@Override
 	protected void initialize() {
