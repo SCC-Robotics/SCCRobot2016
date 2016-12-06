@@ -87,7 +87,7 @@ public class RobotMap {
 		prefs.putDouble("Heading_D", STRAIGHT_KD);
 		prefs.putDouble("Straight distance", 1);
 		prefs.putDouble("Straight power", .3);
-		prefs.putString("Drive Path", "d0.5, a90, d0.5");
+		prefs.putString("Drive Path", "d 0.5, t 90, d 0.5");
 	}
 
 }
