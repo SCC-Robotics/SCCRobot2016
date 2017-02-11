@@ -1,11 +1,10 @@
 package robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Command;
 import robot.DriverStation;
 import robot.Robot;
 import robot.subsystems.Drive;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualDrive extends Command {
 
@@ -30,7 +29,7 @@ public class ManualDrive extends Command {
 		double z = joystick.getThrottle(); // rotation of the handle (+ if
 											// to
 											// the right, - if to the left)
-		SmartDashboard.putString("x, y, z from joystick", x + ", " + y + ", " + z);
+		// SmartDashboard.putString("x, y, z from joystick", x + ", " + y + ", " + z);
 		// forward is negative on the y-axis
 		double pBL = y - x - z;
 		double pBR = y + x + z;

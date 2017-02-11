@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.utilities.AverageSonicSensor;
@@ -40,10 +41,12 @@ public class RobotMap {
 	// Hall effect sensors on the actuator
 	public static DigitalInput hallbot = new DigitalInput(0);
 	public static DigitalInput halltop = new DigitalInput(1);
+	
 	// Sonic sensor
 	public static AnalogInput sonicSensor = new AnalogInput(0);
 	public static AverageSonicSensor sonicAverage = new AverageSonicSensor(sonicSensor, 5);
-
+	public static Ultrasonic digiSonicSensor;
+	
 	// motor controller for the ball launcher
 	public static VictorSP motorWinch = new VictorSP(4);
 	public static VictorSP motorActuator = new VictorSP(5);
@@ -63,15 +66,18 @@ public class RobotMap {
 	// encoders for the wheel
 	public static Encoder wheelEncoder = new Encoder(9, 8); // a->9, b->8
 	// measured 4422 ticks over 26 feet
-	//public static final double TICKS_PER_METER = (4422 / (26 * 12 * .0254));
+	// public static final double TICKS_PER_METER = (4422 / (26 * 12 * .0254));
 	// Latest measurement was 1528 ticks over 9 2/3 feet
 	public static final double TICKS_PER_METER = (1528 / (9.667 * 12 * .0254));
-	
+
 	// table of values to store on the roborio and possibly modify on the
 	// smartdashboard
 	public static Preferences prefs = Preferences.getInstance();
 
 	public static void init() {
+		digiSonicSensor = new Ultrasonic(6, 7);
+		digiSonicSensor.setAutomaticMode(true);
+		
 		// populate the LiveWindow with variables (visible only in test mode)
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);
@@ -80,14 +86,34 @@ public class RobotMap {
 
 		// Add values to the preferences table: useful for interactively tuning
 		// the robot (e.g. pid's)
-		prefs.putBoolean("Test heading", false);
-		prefs.putDouble("Heading", 0);
-		prefs.putDouble("Heading_P", STRAIGHT_KP);
-		prefs.putDouble("Heading_I", STRAIGHT_KI);
-		prefs.putDouble("Heading_D", STRAIGHT_KD);
-		prefs.putDouble("Straight distance", 1);
-		prefs.putDouble("Straight power", .3);
-		prefs.putString("Drive Path", "d 0.5, t 90, d 0.5");
+		setDefaultPref("Test heading", false);
+		setDefaultPref("Heading", 0);
+		setDefaultPref("Heading_P", STRAIGHT_KP);
+		setDefaultPref("Heading_I", STRAIGHT_KI);
+		setDefaultPref("Heading_D", STRAIGHT_KD);
+		setDefaultPref("Straight distance", 1);
+		setDefaultPref("Straight power", .3);
+		setDefaultPref("Drive Path", "d 0.5, t 90, d 0.5");
+	}
+
+	public static void setDefaultPref(String key, Object value) {
+		if (!prefs.containsKey(key)) {
+			if (value.getClass() == Boolean.class) {
+				prefs.putBoolean(key, (boolean) value);
+			} else if (value.getClass() == Double.class) {
+				prefs.putDouble(key, (double) value);
+			} else if (value.getClass() == Float.class) {
+				prefs.putFloat(key, (float) value);
+			} else if (value.getClass() == Integer.class) {
+				prefs.putInt(key, (int) value);
+			} else if (value.getClass() == Long.class) {
+				prefs.putLong(key, (long) value);
+			} else if (value.getClass() == String.class) {
+				prefs.putString(key, (String) value);
+			} else {
+				throw new IllegalArgumentException("key=" + key + ", value=" + value);
+			}
+		}
 	}
 
 }

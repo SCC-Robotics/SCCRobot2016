@@ -1,9 +1,6 @@
 package robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.commands.LaunchBall;
 import robot.utilities.MathHelper;
@@ -27,9 +24,9 @@ public class BallLauncher extends Subsystem {
 		}
 		power = MathHelper.clamp(power, -.5, .5);
 		
-		SmartDashboard.putBoolean("Top", RobotMap.halltop.get());
-		SmartDashboard.putBoolean("bottom", RobotMap.hallbot.get());
-		SmartDashboard.putNumber("power", power);
+		// SmartDashboard.putBoolean("Top", RobotMap.halltop.get());
+		// SmartDashboard.putBoolean("bottom", RobotMap.hallbot.get());
+		// SmartDashboard.putNumber("power", power);
 
 		RobotMap.motorActuator.set(power);
 

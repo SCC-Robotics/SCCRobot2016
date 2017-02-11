@@ -31,9 +31,10 @@ public class AverageSonicSensor {
 
 	public void addValue() {
 		int sValue = sonicSensor.getValue();
+		
 		if (Math.abs(sValue - getAverage()) <= 500|| count==0) {
 			sum -= sensorList[start];
-			sensorList[start] = sonicSensor.getValue();
+			sensorList[start] = sValue;
 			sum += sensorList[start];
 			start = (start + 1) % nValues;
 			count = Math.min(count + 1, nValues);

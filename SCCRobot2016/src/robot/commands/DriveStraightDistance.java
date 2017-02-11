@@ -3,7 +3,6 @@ package robot.commands;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 import robot.RobotMap;
 import robot.subsystems.Drive;
@@ -62,16 +61,16 @@ public class DriveStraightDistance extends Command implements PIDOutput {
 		pidEncoder.setToleranceBuffer(25);
 		pidEncoder.enable();
 
-		SmartDashboard.putString("power, distance, forward", power + ", " + distance + ", " + forward);
+		// SmartDashboard.putString("power, distance, forward", power + ", " + distance + ", " + forward);
 	}
 
 	@Override
 	protected void execute() {
 		drive.driveOnHeading(MathHelper.clamp(pidOutput, -Math.abs(power), Math.abs(power)));
 
-		SmartDashboard.putString("Encoder Current and Target", RobotMap.wheelEncoder.get() + ", " + endEncoder);
-		SmartDashboard.putNumber("PID Encoder Average Error", pidEncoder.getAvgError());
-		SmartDashboard.putNumber("PID Encoder Error", pidEncoder.getError());
+		// SmartDashboard.putString("Encoder Current and Target", RobotMap.wheelEncoder.get() + ", " + endEncoder);
+		// SmartDashboard.putNumber("PID Encoder Average Error", pidEncoder.getAvgError());
+		// SmartDashboard.putNumber("PID Encoder Error", pidEncoder.getError());
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.DriverStation;
 import robot.Robot;
 import robot.RobotMap;
@@ -29,8 +28,8 @@ public class LaunchBall extends Command {
 
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("servo angle", RobotMap.servo.getAngle());
-		SmartDashboard.putNumber("servo position", RobotMap.servo.getPosition());
+		// SmartDashboard.putNumber("servo angle", RobotMap.servo.getAngle());
+		// SmartDashboard.putNumber("servo position", RobotMap.servo.getPosition());
 		if (!shoot && gamePad.getRawButton(1) && !waitToShoot) {
 			shoot = true;
 			waitToShoot = true;
