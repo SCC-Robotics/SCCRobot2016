@@ -1,11 +1,11 @@
 package robot;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 //import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.commandgroups.DriveAroundFloor2;
 import robot.commands.DrivePath;
@@ -18,27 +18,6 @@ import robot.subsystems.Drive;
  * documentation.
  */
 
-// Error to check
-/**
- * ERROR 1 ERROR Unhandled exception instantiating robot robot.Robot
- * java.lang.IllegalStateException: Network tables has already been initialized
- * at
- * [edu.wpi.first.wpilibj.networktables.NetworkTable.checkInit(NetworkTable.java
- * :31), edu.wpi.first.wpilibj.networktables.NetworkTable.setPersistentFilename(
- * NetworkTable.java:123), edu.wpi.first.wpilibj.RobotBase.
- * <init>(RobotBase.java:63), edu.wpi.first.wpilibj.IterativeRobot.
- * <init>(IterativeRobot.java:57), robot.Robot.<init>(Robot.java:17),
- * sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method),
- * sun.reflect.NativeConstructorAccessorImpl.newInstance(
- * NativeConstructorAccessorImpl.java:62),
- * sun.reflect.DelegatingConstructorAccessorImpl.newInstance(
- * DelegatingConstructorAccessorImpl.java:45),
- * java.lang.reflect.Constructor.newInstance(Constructor.java:408),
- * java.lang.Class.newInstance(Class.java:433),
- * edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:204)]
- * edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:206)
- */
-
 public class Robot extends IterativeRobot {
 
 	// the subsystems of the robot
@@ -49,12 +28,14 @@ public class Robot extends IterativeRobot {
 	public Command autonomousCommand;
 
 	public void robotInit() {
-		NetworkTable t;
 		RobotMap.init();
 		DriverStation.buttonInit();
-		CameraServer server = CameraServer.getInstance();
-		server.setQuality(100);
-		server.startAutomaticCapture("cam0");
+
+		// Keep the compressor from starting.
+		RobotMap.compressor.stop();
+
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setResolution(640, 360);
 	}
 
 	@Override
@@ -111,7 +92,7 @@ public class Robot extends IterativeRobot {
 	public void periodicAll() {
 		RobotMap.sonicAverage.addValue();
 		SmartDashboard.putNumber("Distance in Front", RobotMap.sonicAverage.getAverage());
-		
+
 		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
 		// SmartDashboard.putBoolean("top", RobotMap.top.get());
 		// SmartDashboard.putNumber("Back Left motor", RobotMap.motorBL.get());
