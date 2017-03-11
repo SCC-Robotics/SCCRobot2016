@@ -59,6 +59,9 @@ public class DrivePath extends CommandGroup {
 		case "d":
 			addSequential(new DriveStraightDistance(arg));
 			break;
+		case "dw":
+			addSequential(new DriveStraightToWall());
+			break;
 		case "t":
 			addSequential(new TurnAngle(arg));
 			break;

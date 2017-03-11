@@ -36,7 +36,7 @@ public class DriveStraightToWall extends Command {
 	protected boolean isFinished() {
 
 		// Goes on until interrupted
-		return RobotMap.sonicAverage.getAverage() <= 300;
+		return RobotMap.ultrasonic.getValue() <= 300;
 	}
 
 	@Override

@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import robot.utilities.AnalogUltrasonic;
 import robot.utilities.AverageSonicSensor;
 import robot.utilities.ContinuousGyro;
 
@@ -45,7 +46,7 @@ public class RobotMap {
 	// Sonic sensor
 	public static AnalogInput sonicSensor = new AnalogInput(0);
 	public static AverageSonicSensor sonicAverage = new AverageSonicSensor(sonicSensor, 5);
-	public static Ultrasonic digiSonicSensor;
+	public static AnalogUltrasonic ultrasonic = new AnalogUltrasonic();
 	
 	// motor controller for the ball launcher
 	public static VictorSP motorWinch = new VictorSP(4);
@@ -54,9 +55,10 @@ public class RobotMap {
 
 	// solenoid
 	public static DoubleSolenoid gearboxSol = new DoubleSolenoid(0, 1);
-	public static DoubleSolenoid cannonSol = new DoubleSolenoid(2, 3);
+	public static DoubleSolenoid cannonSol = new DoubleSolenoid(4, 5);
+	public static Solenoid lightSol = new Solenoid(3);
 	// Compressor
-	public static Compressor compressor = new Compressor(1);
+	public static Compressor compressor = new Compressor(0);
 
 	// the accelerometer and gyro
 	// public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
@@ -75,9 +77,6 @@ public class RobotMap {
 	public static Preferences prefs = Preferences.getInstance();
 
 	public static void init() {
-		digiSonicSensor = new Ultrasonic(6, 7);
-		digiSonicSensor.setAutomaticMode(true);
-		
 		// populate the LiveWindow with variables (visible only in test mode)
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);

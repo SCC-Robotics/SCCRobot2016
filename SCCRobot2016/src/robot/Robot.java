@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.commandgroups.DriveAroundFloor2;
 import robot.commands.DrivePath;
 import robot.subsystems.BallLauncher;
+import robot.subsystems.CameraLight;
 import robot.subsystems.Drive;
+import robot.utilities.VisionProcessor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +27,8 @@ public class Robot extends IterativeRobot {
 	// we will have more (e.g. launcher subsystem)
 	public static Drive drive = new Drive();
 	public static BallLauncher launcher = new BallLauncher();
+	public static CameraLight cameraLight = new CameraLight();
+	public static VisionProcessor visionProcessor;
 	public Command autonomousCommand;
 
 	public void robotInit() {
@@ -36,6 +40,8 @@ public class Robot extends IterativeRobot {
 
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(640, 360);
+		visionProcessor = new VisionProcessor();
+		visionProcessor.start();
 	}
 
 	@Override
@@ -51,9 +57,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// TODO Auto-generated method stub
-		super.teleopInit();
-
 		String path = RobotMap.prefs.getString("Drive Path", "d 0.5, t 90, d 0.5");
 		SmartDashboard.putData("Drive Path", new DrivePath(path));
 	}
@@ -67,32 +70,27 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
-		// TODO Auto-generated method stub
-		super.disabledInit();
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		// TODO Auto-generated method stub
-		super.disabledPeriodic();
+		periodicAll();
 	}
 
 	@Override
 	public void testInit() {
-		// TODO Auto-generated method stub
-		super.testInit();
 	}
 
 	@Override
 	public void testPeriodic() {
-		// TODO Auto-generated method stub
-		super.testPeriodic();
+		periodicAll();
 	}
 
 	public void periodicAll() {
 		RobotMap.sonicAverage.addValue();
-		SmartDashboard.putNumber("Distance in Front", RobotMap.sonicAverage.getAverage());
-
+		//SmartDashboard.putNumber("Distance in Front", RobotMap.sonicAverage.getAverage());
+		SmartDashboard.putNumber("Distance in Front", RobotMap.ultrasonic.getValue());
+		
 		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
 		// SmartDashboard.putBoolean("top", RobotMap.top.get());
 		// SmartDashboard.putNumber("Back Left motor", RobotMap.motorBL.get());

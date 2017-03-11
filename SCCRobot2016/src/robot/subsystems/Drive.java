@@ -27,7 +27,7 @@ public class Drive extends Subsystem implements PIDOutput {
 		drivePID.setSetpoint(heading);
 		drivePID.setOutputRange(-0.5, 0.5);
 		drivePID.enable();
-		SmartDashboard.putNumber("set point ", drivePID.getSetpoint());
+		// SmartDashboard.putNumber("set point ", drivePID.getSetpoint());
 	}
 
 	public void driveOnHeading(double power) {
