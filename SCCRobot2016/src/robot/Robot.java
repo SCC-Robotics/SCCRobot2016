@@ -2,7 +2,6 @@ package robot;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
-//import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -87,8 +86,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void periodicAll() {
-		RobotMap.sonicAverage.addValue();
-		//SmartDashboard.putNumber("Distance in Front", RobotMap.sonicAverage.getAverage());
+		// RobotMap.sonicAverage.addValue();
 		SmartDashboard.putNumber("Distance in Front", RobotMap.ultrasonic.getValue());
 		
 		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
@@ -111,7 +109,6 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putNumber("Digital sonic sensor", RobotMap.digiSonicSensor.getRangeInches());
 		// SmartDashboard.putNumber("WheelEncoder value", RobotMap.wheelEncoder.get());
 		// SmartDashboard.putData("reset encoder", new ResetEncoder());
-		// SmartDashboard.putString("solenoid",
-		// RobotMap.pistonSol.get().toString());
+		// SmartDashboard.putString("solenoid", RobotMap.pistonSol.get().toString());
 	}
 }

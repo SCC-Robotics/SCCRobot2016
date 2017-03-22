@@ -3,7 +3,6 @@ package robot.subsystems;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.commands.ManualDrive;
 import robot.utilities.MathHelper;
@@ -61,7 +60,7 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void rawMecanumDrive(double pFL, double pFR, double pBL, double pBR) {
-		double max = Math.min(RobotMap.sonicAverage.getAverage() / 1000, 1);
+		double max = Math.min(RobotMap.ultrasonic.getValue() / 1000, 1);
 		double min = -max;
 		// Bypass the sonic sensor
 		max = 1;

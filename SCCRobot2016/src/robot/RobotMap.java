@@ -1,6 +1,5 @@
 package robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -12,7 +11,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.utilities.AnalogUltrasonic;
-import robot.utilities.AverageSonicSensor;
 import robot.utilities.ContinuousGyro;
 
 /**
@@ -44,9 +42,8 @@ public class RobotMap {
 	public static DigitalInput halltop = new DigitalInput(1);
 	
 	// Sonic sensor
-	public static AnalogInput sonicSensor = new AnalogInput(0);
-	public static AverageSonicSensor sonicAverage = new AverageSonicSensor(sonicSensor, 5);
-	public static AnalogUltrasonic ultrasonic = new AnalogUltrasonic();
+	// public static AverageSonicSensor sonicAverage = new AverageSonicSensor(new AnalogInput(0), 5);
+	public static AnalogUltrasonic ultrasonic = new AnalogUltrasonic(0);
 	
 	// motor controller for the ball launcher
 	public static VictorSP motorWinch = new VictorSP(4);

@@ -60,7 +60,6 @@ public class LaunchBall extends Command {
 		}
 
 		if (gamePad.getRawButton(3)) {
-			System.out.println("Gamepad button 3");
 			// launcher.riseActuator(0.3);
 			RobotMap.gearboxSol.set(DoubleSolenoid.Value.kForward);
 		} else if (gamePad.getRawButton(4)) {
