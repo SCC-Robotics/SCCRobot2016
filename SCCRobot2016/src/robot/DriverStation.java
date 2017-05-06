@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import robot.commands.DriveStraight;
 import robot.commands.DriveStraightDistance;
 import robot.commands.ManualDrive;
+import robot.commands.Shoot;
 import robot.commands.ToggleCameraLight;
 import robot.commands.TurnAngle;
 
@@ -20,7 +21,9 @@ public class DriverStation {
 	public static Button joystickB2 = new JoystickButton(joystick, 2);
 	public static Button joystickB3 = new JoystickButton(joystick, 3);
 	public static Button joystickB4 = new JoystickButton(joystick, 4);
+	public static Button joystickB5 = new JoystickButton(joystick, 5);
 	public static Button gamePadRB = new JoystickButton(gamePad, 6);
+
 
 	public static void buttonInit() {
 		// associate a command to the button
@@ -37,6 +40,8 @@ public class DriverStation {
 		
 		// Toggle the camera light.
 		joystickB2.whenPressed(new ToggleCameraLight());
+		joystickB5.whileHeld(new Shoot());
+
 		
 		// Drive straight one meter
 		gamePadRB.whenPressed(new DriveStraightDistance());

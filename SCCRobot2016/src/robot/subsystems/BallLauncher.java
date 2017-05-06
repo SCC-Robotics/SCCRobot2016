@@ -42,14 +42,14 @@ public class BallLauncher extends Subsystem {
 		RobotMap.servo.setAngle(angle);
 	}
 
-	public void pullWinch(double power) {
+	public void rawShoot(double power) {
 		power = MathHelper.clamp(power, -1, 1);
-		RobotMap.motorWinch.set(power);
+		RobotMap.motorShooter.set(power);
 	}
 
 	public void stop() {
 		RobotMap.motorActuator.set(0);
-		RobotMap.motorWinch.set(0);
+		RobotMap.motorShooter.set(0);
 	}
 
 }

@@ -53,9 +53,9 @@ public class LaunchBall extends Command {
 			launcher.riseActuator(y); // try -y
 			if (gamePad.getRawButton(2)) {
 				// positive power is the correct direction to rewind the cable
-				launcher.pullWinch(0.3);
+				launcher.rawShoot(0.3);
 			} else {
-				launcher.pullWinch(0);
+				launcher.rawShoot(0);
 			}
 		}
 

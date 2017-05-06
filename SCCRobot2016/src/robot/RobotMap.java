@@ -46,7 +46,7 @@ public class RobotMap {
 	public static AnalogUltrasonic ultrasonic = new AnalogUltrasonic(0);
 	
 	// motor controller for the ball launcher
-	public static VictorSP motorWinch = new VictorSP(4);
+	public static VictorSP motorShooter = new VictorSP(4);
 	public static VictorSP motorActuator = new VictorSP(5);
 	public static Servo servo = new Servo(6);
 
