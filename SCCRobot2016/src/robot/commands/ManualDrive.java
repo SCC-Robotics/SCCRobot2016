@@ -35,7 +35,10 @@ public class ManualDrive extends Command {
 		double pBR = y + x + z;
 		double pFL = y - x + z;
 		double pFR = y + x - z;
-		drive.rawMecanumDrive(pBL, pBR, pFL, pFR);
+
+		// Throttle the speed using the slider at the front of the joystick.
+		double throttle = (1 - joystick.getZ()) / 2.0;
+		drive.rawMecanumDrive(pBL * throttle, pBR * throttle, pFL * throttle, pFR * throttle);
 	}
 
 	@Override
