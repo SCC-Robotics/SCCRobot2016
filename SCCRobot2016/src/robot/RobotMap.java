@@ -1,9 +1,11 @@
 package robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
@@ -12,6 +14,12 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.utilities.AnalogUltrasonic;
 import robot.utilities.ContinuousGyro;
+import robot.utilities.ParallaxPing;
+import robot.utilities.UltrasonicRangeFinder;
+import vision.I2Cwrapper;
+import vision.IPixyLink;
+import vision.PixyCam;
+import vision.SPIwrapper;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -40,14 +48,18 @@ public class RobotMap {
 	// Hall effect sensors on the actuator
 	public static DigitalInput hallbot = new DigitalInput(0);
 	public static DigitalInput halltop = new DigitalInput(1);
-	
+
 	// Sonic sensor
-	// public static AverageSonicSensor sonicAverage = new AverageSonicSensor(new AnalogInput(0), 5);
-	public static AnalogUltrasonic ultrasonic = new AnalogUltrasonic(0);
-	
+	// public static AverageSonicSensor sonicAverage = new
+	// AverageSonicSensor(new AnalogInput(0), 5);
+	public static AnalogUltrasonic ultrasonic = new AnalogUltrasonic(1); // Zachs
+																			// sensor
+																			// #1
+	public static UltrasonicRangeFinder ultraRange = new ParallaxPing(new AnalogInput(0));
+
 	// motor controller for the ball launcher
-	public static VictorSP motorShooter = new VictorSP(4);
-	public static VictorSP motorActuator = new VictorSP(5);
+	// public static VictorSP motorShooter = new VictorSP(4);
+	public static VictorSP wheelShooter = new VictorSP(5);
 	public static Servo servo = new Servo(6);
 
 	// solenoid
@@ -64,6 +76,8 @@ public class RobotMap {
 
 	// encoders for the wheel
 	public static Encoder wheelEncoder = new Encoder(9, 8); // a->9, b->8
+	// new added line Encoder for the motor
+	public static Encoder motorEncoder = new Encoder(7, 6); // a->7, b-> 6
 	// measured 4422 ticks over 26 feet
 	// public static final double TICKS_PER_METER = (4422 / (26 * 12 * .0254));
 	// Latest measurement was 1528 ticks over 9 2/3 feet
@@ -73,13 +87,16 @@ public class RobotMap {
 	// smartdashboard
 	public static Preferences prefs = Preferences.getInstance();
 
+	// Pixy cam
+	public static IPixyLink pixyLink;
+	public static PixyCam pixy;
+
 	public static void init() {
 		// populate the LiveWindow with variables (visible only in test mode)
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Left Victor", motorFL);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Front Right Victor", motorFR);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Left Victor", motorBL);
 		LiveWindow.addActuator("Drive Subsystem", "Speed Controller Back Right Victor", motorBR);
-
 		// Add values to the preferences table: useful for interactively tuning
 		// the robot (e.g. pid's)
 		setDefaultPref("Test heading", false);
@@ -90,6 +107,15 @@ public class RobotMap {
 		setDefaultPref("Straight distance", 1);
 		setDefaultPref("Straight power", .3);
 		setDefaultPref("Drive Path", "d 0.5, t 90, d 0.5");
+
+		// Pixy Cam
+		System.out.println("Initialization of pixy cam");
+
+//		pixyLink = new SPIwrapper(SPI.Port.kOnboardCS0);
+		pixyLink = new I2Cwrapper(I2C.Port.kOnboard, 0x54);
+		pixy = new PixyCam(pixyLink);
+		pixy.startVisionThread();
+
 	}
 
 	public static void setDefaultPref(String key, Object value) {

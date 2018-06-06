@@ -8,7 +8,7 @@ import robot.subsystems.Drive;
 
 public class ManualDrive extends Command {
 
-	private Joystick joystick = DriverStation.joystick;
+	private Joystick joystick = DriverStation.joystick; //joystick or gamepad
 	private Drive drive = Robot.drive;
 
 	public ManualDrive() {
@@ -26,6 +26,7 @@ public class ManualDrive extends Command {
 		double y = -joystick.getY(); // backward-forward (+ for backward, -
 									// for
 									// forward)
+
 		double z = joystick.getThrottle(); // rotation of the handle (+ if
 											// to
 											// the right, - if to the left)

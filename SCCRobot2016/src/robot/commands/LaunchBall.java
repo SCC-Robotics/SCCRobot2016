@@ -13,7 +13,7 @@ public class LaunchBall extends Command {
 
 	private static final double PERIOD = 1;
 	private BallLauncher launcher = Robot.launcher;
-	private Joystick gamePad = DriverStation.gamePad;
+	private Joystick joystick = DriverStation.joystick; //using joystick right now
 	private boolean shoot, waitToShoot;
 	private Timer timer;
 
@@ -30,7 +30,7 @@ public class LaunchBall extends Command {
 	protected void execute() {
 		// SmartDashboard.putNumber("servo angle", RobotMap.servo.getAngle());
 		// SmartDashboard.putNumber("servo position", RobotMap.servo.getPosition());
-		if (!shoot && gamePad.getRawButton(1) && !waitToShoot) {
+		if (!shoot && joystick.getRawButton(5) && !waitToShoot) {
 			shoot = true;
 			waitToShoot = true;
 			timer.start();
@@ -49,25 +49,43 @@ public class LaunchBall extends Command {
 				timer.stop();
 			}
 
-			double y = gamePad.getY();
-			launcher.riseActuator(y); // try -y
-			if (gamePad.getRawButton(2)) {
+			//for gamepad controller
+//			int pov = joystick.getPOV();
+//			if (pov == 0) {
+//				launcher.riseActuator(10);
+//			} else if (pov == 180) {
+//				launcher.riseActuator(-10);
+//			} else if (pov == -1) {
+//				launcher.riseActuator(0);
+//			}
+			
+//			launcher.riseActuator(-y); // try -y
+			if (joystick.getRawButton(5)) {
 				// positive power is the correct direction to rewind the cable
-				launcher.rawShoot(0.3);
+				launcher.rawShoot(1);
 			} else {
 				launcher.rawShoot(0);
 			}
 		}
+		
+		//for joystick
+		while (joystick.getRawButton(5)) {
+			launcher.riseActuator(20);
+		}
+		
+		while (joystick.getRawButton(6)) {
+			launcher.riseActuator(-20);
+		}
 
-		if (gamePad.getRawButton(3)) {
+		if (joystick.getRawButton(3)) {
 			// launcher.riseActuator(0.3);
 			RobotMap.gearboxSol.set(DoubleSolenoid.Value.kForward);
-		} else if (gamePad.getRawButton(4)) {
+		} else if (joystick.getRawButton(4)) {
 			// launcher.riseActuator(-.3);
 			RobotMap.gearboxSol.set(DoubleSolenoid.Value.kReverse);
-		} else if (gamePad.getRawButton(6)) {
+		} else if (joystick.getRawButton(6)) {
 			RobotMap.cannonSol.set(DoubleSolenoid.Value.kForward);
-		}else if (gamePad.getRawButton(5)) {
+		}else if (joystick.getRawButton(5)) {
 			RobotMap.cannonSol.set(DoubleSolenoid.Value.kReverse);
 		}
 	}

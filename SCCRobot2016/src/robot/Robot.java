@@ -12,6 +12,7 @@ import robot.subsystems.BallLauncher;
 import robot.subsystems.CameraLight;
 import robot.subsystems.Drive;
 import robot.utilities.VisionProcessor;
+import vision.I2Cwrapper;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,7 +43,7 @@ public class Robot extends IterativeRobot {
 //		visionProcessor = new VisionProcessor();
 //		visionProcessor.start();
 	}
-
+  
 	@Override
 	public void autonomousInit() {
 		new DriveAroundFloor2().start();
@@ -85,11 +86,11 @@ public class Robot extends IterativeRobot {
 		periodicAll();
 	}
 
-	public void periodicAll() {
+	public void periodicAll( ) {
 		// RobotMap.sonicAverage.addValue();
-		SmartDashboard.putNumber("Distance in Front", RobotMap.ultrasonic.getValue());
-		// SmartDashboard.putNumber("Distance in Front from camera, feet ",
-		// visionProcessor.getDistanceFeet());
+		SmartDashboard.putNumber("Distance in Front", RobotMap.ultraRange.getVoltage());
+		// SmartDashboard.putNumber("Distance in Front from camera, feet ",4
+//		SmartDashboard.putNumber("DDD", visionProcessor.getDistanceFeet());
 		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
 		// SmartDashboard.putBoolean("top", RobotMap.top.get());
 		// SmartDashboard.putNumber("Back Left motor", RobotMap.motorBL.get());

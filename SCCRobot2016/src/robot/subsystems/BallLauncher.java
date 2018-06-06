@@ -1,4 +1,4 @@
-package robot.subsystems;
+ package robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import robot.RobotMap;
@@ -27,8 +27,9 @@ public class BallLauncher extends Subsystem {
 		// SmartDashboard.putBoolean("Top", RobotMap.halltop.get());
 		// SmartDashboard.putBoolean("bottom", RobotMap.hallbot.get());
 		// SmartDashboard.putNumber("power", power);
-
-		RobotMap.motorActuator.set(power);
+		
+		//SET THE POWER FOR WHEEL SHOTER
+		RobotMap.wheelShooter.set(power);
 
 		// if (!top.get()) {
 		// canMoveUp = (power < 0);
@@ -44,12 +45,12 @@ public class BallLauncher extends Subsystem {
 
 	public void rawShoot(double power) {
 		power = MathHelper.clamp(power, -1, 1);
-		RobotMap.motorShooter.set(power);
+		//RobotMap.motorShooter.set(power);
 	}
 
 	public void stop() {
-		RobotMap.motorActuator.set(0);
-		RobotMap.motorShooter.set(0);
+		RobotMap.wheelShooter.set(0);
+		//RobotMap.motorShooter.set(0);
 	}
 
 }

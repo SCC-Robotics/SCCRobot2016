@@ -15,7 +15,7 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.CameraServer;
-import robot.utilities.GripPipeline.Line;
+import robot.utilities.GripPipeline.*;
 
 public class VisionProcessor {
 	// target height in pixels, 1m away
@@ -51,26 +51,26 @@ public class VisionProcessor {
 				}
 
 				pipeline.process(tempFrame);
-				// output.putFrame(pipeline.hslThresholdOutput());
+				output.putFrame(pipeline.hsvThresholdOutput());
 				Rect maxRect = new Rect(0, 0, 0, 0);
-				for (Line line : pipeline.filterLinesOutput()) {
-					Imgproc.line(tempFrame, new Point(line.x1, line.y1), new Point(line.x2, line.y2),
-							new Scalar(0, 0, 255));
-				}
+//				for (Line line : pipeline.filterLinesOutput()) {
+//					Imgproc.line(tempFrame, new Point(line.x1, line.y1), new Point(line.x2, line.y2),
+//							new Scalar(0, 0, 255));
+//				}
 				heightPx = maxRect.height;
 				
 				synchronized (rawFrame) {
-//					output.putFrame(tempFrame);
-					output.putFrame(pipeline.hslThresholdOutput());
+					output.putFrame(tempFrame);
+					output.putFrame(pipeline.hsvThresholdOutput());
 				}
 
-				/*synchronized (processedFrame) {
+				synchronized (processedFrame) {
 					tempFrame.copyTo(processedFrame);
 					processedFrameReady = true;
-				}*/
+				}
 			}
 		}, 0, 50);
-
+ 
 		// Output the latest frame.
 		// executor.scheduleWithFixedDelay(() -> {
 		processingTimer.schedule(new TimerTask() {
@@ -81,19 +81,17 @@ public class VisionProcessor {
 					output.putFrame(rawFrame);
 				}
 				
-				/*if (processedFrameReady) {
+				if (processedFrameReady) {
 					synchronized (processedFrame) {
-						// System.out.println(System.currentTimeMillis() + ":
-						// Output processed frame");
+						System.out.println(System.currentTimeMillis() + ":Output processed frame");
 						output.putFrame(processedFrame);
 						processedFrameReady = false;
 					}
 				} else {
-					// System.out.println(System.currentTimeMillis() + ": Output
-					// raw frame");
+					System.out.println(System.currentTimeMillis() + ": Outputraw frame");
 					input.grabFrame(rawFrame);
 					output.putFrame(rawFrame);
-				}*/
+				}
 			}
 		}, 0, 50);
 	}

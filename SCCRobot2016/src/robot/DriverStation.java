@@ -21,7 +21,8 @@ public class DriverStation {
 	public static Button joystickB3 = new JoystickButton(joystick, 3);
 	public static Button joystickB4 = new JoystickButton(joystick, 4);
 	public static Button joystickB5 = new JoystickButton(joystick, 5);
-	public static Button gamePadRB = new JoystickButton(gamePad, 6);
+	public static Button joystickB6 = new JoystickButton(joystick, 6);
+	//public static Button gamePadRB = new JoystickButton(gamePad, 6);
 
 	public static void buttonInit() {
 		// associate a command to the button

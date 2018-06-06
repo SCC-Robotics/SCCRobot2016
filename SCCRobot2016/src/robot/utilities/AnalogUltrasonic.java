@@ -49,5 +49,9 @@ public class AnalogUltrasonic {
 			return value;
 		}
 	}
+	
+	public double getVoltage() {
+		return sensor.getAverageVoltage();
+	}
 
 }
