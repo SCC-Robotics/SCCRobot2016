@@ -133,8 +133,9 @@ public class PixyCam {
 
 	private synchronized void setPixyFrameData(ArrayList<Block> blocks) {
 		this.pixyFrameData = blocks;
+		//System.out.println("Calling for pixy data");
 		for(Block b: blocks){
-			System.out.println(b);
+			//System.out.println(b);
 		}
 	}
 

@@ -8,6 +8,7 @@ import robot.commands.ManualDrive;
 import robot.commands.Shoot;
 import robot.commands.ToggleCameraLight;
 import robot.commands.TurnAngle;
+import robot.commands.TurnToTarget;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -41,6 +42,9 @@ public class DriverStation {
 		joystickB2.whenPressed(new ToggleCameraLight());
 
 		joystickB5.whileHeld(new Shoot());
+		
+		joystickB6.whenPressed(new TurnToTarget());
+		joystickB6.whenReleased(new ManualDrive());
 	}
 
 }
