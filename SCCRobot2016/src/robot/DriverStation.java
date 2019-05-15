@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import robot.commands.DriveStraight;
+import robot.commands.DriveToTarget;
 import robot.commands.ManualDrive;
-import robot.commands.Shoot;
 import robot.commands.ToggleCameraLight;
 import robot.commands.TurnAngle;
 import robot.commands.TurnToTarget;
@@ -41,10 +41,13 @@ public class DriverStation {
 		// Toggle the camera light.
 		joystickB2.whenPressed(new ToggleCameraLight());
 
-		joystickB5.whileHeld(new Shoot());
+		//joystickB5.whileHeld(new Shoot());
+		joystickB5.whenPressed(new DriveToTarget());
 		
 		joystickB6.whenPressed(new TurnToTarget());
-		joystickB6.whenReleased(new ManualDrive());
+		//joystickB6.whenReleased(new ManualDrive());
+		//joystickB6.whenActive(new TurnToTarget());
+		//joystickB6.whenInactive(new ManualDrive());
 	}
 
 }

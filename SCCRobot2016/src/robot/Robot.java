@@ -11,6 +11,7 @@ import robot.commands.DrivePath;
 import robot.subsystems.BallLauncher;
 import robot.subsystems.CameraLight;
 import robot.subsystems.Drive;
+import robot.utilities.TargetComputations;
 import robot.utilities.VisionProcessor;
 import vision.I2Cwrapper;
 
@@ -89,6 +90,10 @@ public class Robot extends IterativeRobot {
 	public void periodicAll( ) {
 		// RobotMap.sonicAverage.addValue();
 		SmartDashboard.putNumber("Distance in Front", RobotMap.ultraRange.getVoltage());
+		SmartDashboard.putNumber("Angle to Target", TargetComputations.getAngleFromPixy());
+		SmartDashboard.putNumber("Distance to Target", TargetComputations.getDistanceFromPixy());
+		SmartDashboard.putNumber("Gyro Output", RobotMap.gyro.getAngle());
+		SmartDashboard.putNumber("Pixy Target Width", TargetComputations.getPixelWidth());
 		// SmartDashboard.putNumber("Distance in Front from camera, feet ",4
 //		SmartDashboard.putNumber("DDD", visionProcessor.getDistanceFeet());
 		// SmartDashboard.putBoolean("bottom", RobotMap.bottom.get());
@@ -102,8 +107,8 @@ public class Robot extends IterativeRobot {
 		// DriverStation.joystick.getX());
 		// SmartDashboard.putNumber("Joystick y",
 		// DriverStation.joystick.getY());
-		// SmartDashboard.putNumber("Joystick z",
-		// DriverStation.joystick.getZ());
+		 SmartDashboard.putNumber("Joystick z",
+		 DriverStation.joystick.getZ());
 		// SmartDashboard.putNumber("Joystick twist",
 		// DriverStation.joystick.getTwist());
 		// SmartDashboard.putNumber("Joystick directions degrees",

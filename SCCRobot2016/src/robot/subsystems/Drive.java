@@ -18,6 +18,7 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void driveOnHeadingInit(double heading) {
+		System.out.println("Calling driveOnHeadingInit");
 		double kp = RobotMap.prefs.getDouble("Heading_P", RobotMap.STRAIGHT_KP);
 		double ki = RobotMap.prefs.getDouble("Heading_I", RobotMap.STRAIGHT_KI);
 		double kd = RobotMap.prefs.getDouble("Heading_D", RobotMap.STRAIGHT_KD);

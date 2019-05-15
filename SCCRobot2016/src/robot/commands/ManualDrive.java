@@ -23,7 +23,7 @@ public class ManualDrive extends Command {
 	protected void execute() {
 		// read the joystick inputs and compute the power of the motors
 		double x = joystick.getX(); // left-right (+ for left, - for right)
-		double y = -joystick.getY(); // backward-forward (+ for backward, -
+		double y = joystick.getY(); // backward-forward (+ for backward, -
 									// for
 									// forward)
 

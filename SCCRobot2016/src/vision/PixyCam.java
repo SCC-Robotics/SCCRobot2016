@@ -40,7 +40,7 @@ public class PixyCam {
 			word = link.getWord();
 
 			if (word == PIXY_START_WORD && prevWord == PIXY_START_WORD) {
-				System.out.println("getStart(): New frame, Normal Block");
+//				System.out.println("getStart(): New frame, Normal Block");
 				blockType = BlockType.NORMAL_BLOCK;
 				return true;
 			} else if (word == PIXY_START_WORD_CC && prevWord == PIXY_START_WORD) {
@@ -88,7 +88,7 @@ public class PixyCam {
 					blockType = BlockType.NORMAL_BLOCK;
 					break;
 				} else if (checksum == PIXY_START_WORD_CC) { // previous word was extra sync word to indicate new frame
-//					System.out.println("getBlocksLoop(): New frame, color code block");
+					System.out.println("getBlocksLoop(): New frame, color code block");
 					skipStart = true;
 					blockType = BlockType.CC_BLOCK;
 					break;
@@ -123,7 +123,7 @@ public class PixyCam {
 			}
 
 			setPixyFrameData(blocks);
-			System.out.println("getBlocksLoop(): blocks added to list, size: " + blocks.size() + "\n");
+//			System.out.println("getBlocksLoop(): blocks added to list, size: " + blocks.size() + "\n");
 		}
 	}
 
@@ -135,7 +135,7 @@ public class PixyCam {
 		this.pixyFrameData = blocks;
 		//System.out.println("Calling for pixy data");
 		for(Block b: blocks){
-			//System.out.println(b);
+			System.out.println(b);
 		}
 	}
 
